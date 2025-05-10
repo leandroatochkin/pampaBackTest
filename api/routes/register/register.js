@@ -5,7 +5,7 @@ import os from 'os';
 import fs from 'fs';
 import {db} from '../../db/db.js'; // Adjust the path as necessary
 import { v4 as uuidv4 } from 'uuid';
-import { sendVerificationEmail } from '../../../mailing/mailingService.js';
+//import { sendVerificationEmail } from '../../../mailing/mailingService.js';
 import jwt from 'jsonwebtoken'
 
 
@@ -92,8 +92,8 @@ router.post(
             expiresIn: '1d',
           })
           
-          const sendEmail = async () => await sendVerificationEmail(email, token)
-          sendEmail()
+          // const sendEmail = async () => await sendVerificationEmail(email, token)
+          // sendEmail()
 
          
         res.json({ message: 'Files and user data received successfully' });
