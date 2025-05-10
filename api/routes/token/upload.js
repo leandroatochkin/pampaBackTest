@@ -22,7 +22,7 @@ router.post('/', async (req, res, next) => {
             res.status(201).json({ message: 'token updated successfully' });
             return;
     } catch (err) {
-        console.error(`error cargando datos`)
+        console.error(`error cargando datos`, err)
 
     }
 });
