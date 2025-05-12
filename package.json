@@ -2,6 +2,7 @@
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
+    "dayjs": "^1.11.13",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "helmet": "^8.1.0",
@@ -12,8 +13,8 @@
     "uuid": "^11.1.0"
   },
   "scripts": {
-  "start": "node server.js",
-  "build": "npm install"
-},
+    "start": "node server.js",
+    "build": "npm install"
+  },
   "type": "module"
 }
