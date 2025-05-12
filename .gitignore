@@ -5,3 +5,5 @@ node_modules
 ca.pem
 
 tokenWatcher.js
+
+secrets
