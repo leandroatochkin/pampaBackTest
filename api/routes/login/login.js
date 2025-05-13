@@ -20,6 +20,10 @@ router.post('/', async (req, res) => {
 
   const result = await db.query('SELECT * FROM users WHERE email = ?', [email]);
 
+  if(result.length === 0){
+    return res.status(401).json({ error: 'Invalid email or password.' });
+  }
+
   if (email !== result[0][0].email || password !== result[0][0].password)
     return res.status(401).json({ error: 'Invalid credentials' });
 
