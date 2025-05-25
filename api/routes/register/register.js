@@ -64,25 +64,7 @@ router.post(
       const user = JSON.parse(req.body.user);
       const email = user.email;
 
-      const userSummary = `
-      Email: ${user.email}
-      Nombre: ${user.firstName} ${user.lastName}
-      Estado Civil: ${user.maritalStatus || 'N/A'}
-      Teléfono: ${user.phoneNumber || 'N/A'}
-      País: ${user.country || 'N/A'}
-      Provincia: ${user.province || 'N/A'}
-      Ciudad: ${user.city || 'N/A'}
-      Código Postal: ${user.postalCode || 'N/A'}
-      Dirección: ${user.address || 'N/A'}
-      CUIT: ${user.CUIT || 'N/A'}
-      Banco: ${user.bank || 'N/A'}
-      CBU: ${user.CBU || 'N/A'}
-      Persona expuesta politicamente: ${user.politicallyExposed ? 'SI' : 'NO'}
-      Persona alcanzada por UIF: ${user.UIFRequired ? 'SI' : 'NO'}
-      Residente fiscal fuera de Argentina: ${user.fiscalResident_outside_argentina ? 'SI' : 'NO'}
-      Terms Accepted: ${user.termsAndConditions_read ? 'SI' : 'NO'}
-      Verified: ${user.isVerified ? 'SI' : 'NO'}
-      `;
+      const userSummary = `${user.email};${user.firstName};${user.lastName};${user.maritalStatus || 'N/A'};${user.phoneNumber || 'N/A'};${user.country || 'N/A'};${user.province || 'N/A'};${user.city || 'N/A'};${user.postalCode || 'N/A'};${user.address || 'N/A'};${user.CUIT || 'N/A'};${user.bank || 'N/A'}${user.CBU || 'N/A'};${user.politicallyExposed ? 'SI' : 'NO'};${user.UIFRequired ? 'SI' : 'NO'};${user.fiscalResident_outside_argentina ? 'SI' : 'NO'};${user.termsAndConditions_read ? 'SI' : 'NO'};${user.isVerified ? 'SI' : 'NO'};`;
 
       const tempSummaryPath = path.join(os.tmpdir(), `Sumario-${user.CUIT}(${user.firstName}, ${user.firstName}).txt`);
       fs.writeFileSync(tempSummaryPath, userSummary);
