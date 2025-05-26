@@ -9,7 +9,7 @@ router.post('/', async (req, res, next) => {
     try {
       
         const item = parseFileData(req.body.data);
-
+        console.log('item', item)
     
 
 
