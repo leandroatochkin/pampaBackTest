@@ -11,8 +11,7 @@ router.get('/', authenticateToken,async (req, res, next) => {
         
             const latestValuations = await db.query(`SELECT * 
                                                     FROM pampaTokenVariations
-                                                    ORDER BY FECHA_MODIFICACION DESC
-                                                    LIMIT 1`)
+                                                    ORDER BY FECHA_MODIFICACION DESC`)
 
             res.status(200).json({ valuation: latestValuations[0] });
             return;
