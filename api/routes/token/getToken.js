@@ -9,9 +9,14 @@ router.get('/', authenticateToken,async (req, res, next) => {
     try {
       
         
-            const latestValuations = await db.query(`SELECT * 
-                                                    FROM pampaTokenVariations
-                                                    ORDER BY FECHA_MODIFICACION DESC`)
+            const latestValuations = await db.query(`SELECT *
+                        FROM (
+                            SELECT *,
+                                ROW_NUMBER() OVER (PARTITION BY SIMBOLO ORDER BY FECHA_MODIFICACION DESC) AS rn
+                            FROM pampaTokenVariations
+                        ) AS ranked
+                        WHERE rn <= 2
+                        ORDER BY SIMBOLO, FECHA_MODIFICACION DESC`)
 
             res.status(200).json({ valuation: latestValuations[0] });
             return;
