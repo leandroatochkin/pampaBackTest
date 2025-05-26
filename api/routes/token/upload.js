@@ -10,6 +10,8 @@ router.post('/', async (req, res, next) => {
       
         const item = parseFileData(req.body.data);
 
+    
+
 
             const { SIMBOLO, NOMBRE, VALOR_COMPRA, VALOR_VENTA, STOCK, VENCIMIENTO } = item[0];
 

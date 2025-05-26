@@ -9,12 +9,12 @@ router.get('/', authenticateToken,async (req, res, next) => {
     try {
       
         
-            const latestValuation = await db.query(`SELECT * 
+            const latestValuations = await db.query(`SELECT * 
                                                     FROM pampaTokenVariations
                                                     ORDER BY FECHA_MODIFICACION DESC
                                                     LIMIT 1`)
 
-            res.status(200).json({ valuation: latestValuation[0][0] });
+            res.status(200).json({ valuation: latestValuations[0] });
             return;
     } catch (err) {
         console.error(`error cargando datos`)
