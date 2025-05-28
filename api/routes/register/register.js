@@ -39,7 +39,7 @@ router.post(
   upload.fields([
     { name: 'frontIdImage', maxCount: 1 },
     { name: 'backIdImage', maxCount: 1 },
-    { name: 'selfieImage', maxCount: 1 }
+   // { name: 'selfieImage', maxCount: 1 }
   ]),
 
 
@@ -85,8 +85,8 @@ router.post(
               return 'DNI-FRENTE'
             case 'backIdImage':
               return 'DNI-DORSO'
-            case 'selfieImage':
-              return 'ROSTRO'
+            //case 'selfieImage':
+             // return 'ROSTRO'
           }
         }
 
@@ -114,7 +114,11 @@ router.post(
       ];
 
 
-      for (const fieldName of ['frontIdImage', 'backIdImage', 'selfieImage']) {
+      for (const fieldName of [
+        'frontIdImage', 
+        'backIdImage', 
+        //'selfieImage'
+      ]) {
         if (req.files[fieldName]?.[0]) {
           console.log(`Processing ${fieldName}...`);
           const file = req.files[fieldName][0];
