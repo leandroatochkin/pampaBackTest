@@ -64,7 +64,7 @@ router.post(
       const user = JSON.parse(req.body.user);
       const email = user.email;
 
-      const userSummary = `${user.email.trim()};${user.firstName.trim()};${user.lastName.trim()};${user.accountType};${user.workingCode};${user.maritalStatus || 'N/A'};${user.phoneNumber.trim() || 'N/A'};${user.country || 'N/A'};${user.province || 'N/A'};${user.city || 'N/A'};${user.postalCode.trim() || 'N/A'};${user.address.trim() || 'N/A'};${user.CUIT.trim() || 'N/A'};${user.bank.trim() || 'N/A'}${user.CBU.trim() || 'N/A'};${user.politicallyExposed ? 'SI' : 'NO'};${user.UIFRequired ? 'SI' : 'NO'};${user.fiscalResident_outside_argentina ? 'SI' : 'NO'};${user.termsAndConditions_read ? 'SI' : 'NO'};${user.isVerified ? 'SI' : 'NO'};`;
+      const userSummary = `${user.email.trim()};${user.accountType};${user.lastName.trim()};${user.firstName.trim()};${user.middleName.trim() || ''};${user.postalCode.trim() || 'N/A'};${user.address.trim() || 'N/A'};${user.city || 'N/A'};${user.province || 'N/A'};${user.country || 'NA'};${user.phoneNumber.trim() || 'N/A'};${user.CUIT.trim() || 'N/A'};${user.maritalStatus || 'N/A'};${user.workingCode};${user.UIFRequired ? 'SI' : 'NO'};${user.politicallyExposed ? 'SI' : 'NO'};${user.bank.trim() || 'N/A'};${user.CBU.trim() || 'N/A'};${user.bankAccountType.trim() || 'N/A'};${user.fiscalResident_outside_argentina ? 'SI' : 'NO'};`;
 
       const tempSummaryPath = path.join(os.tmpdir(), `Sumario-${user.CUIT}(${user.firstName}, ${user.firstName}).txt`);
       fs.writeFileSync(tempSummaryPath, userSummary);
@@ -136,8 +136,8 @@ router.post(
               id, email, password, firstName, lastName, middleName, maritalStatus, phoneNumber,
               country, province, city, postalCode, address, CUIT, bank, CBU,
               politicallyExposed, UIFRequired, fiscalResident_outside_argentina,
-              termsAndConditions_read, isVerified, accountType, workingCode
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+              termsAndConditions_read, isVerified, accountType, workingCode, bankAccountType
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
         const values = [
             userId,
@@ -162,7 +162,8 @@ router.post(
             user.termsAndConditions_read || false,
             user.isVerified || false,
             user.accountType || 0, // Default to 0 if not provided
-            user.workingCode || null
+            user.workingCode || null,
+            user.bankAccountType || 0
           ];
 
 
