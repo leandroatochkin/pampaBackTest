@@ -13,6 +13,7 @@ import buyToken from './api/routes/token/buyToken.js'
 import sellToken from './api/routes/token/sellToken.js'
 import getMovements from './api/routes/movements/getMovements.js'
 import checkAuth from './api/routes/login/checkAuth.js'
+import cookieParser from 'cookie-parser';
 
 
 const app = express();
@@ -27,6 +28,8 @@ app.use(cors({
   origin: frontendURL,  
   credentials: true                 
 }))
+app.use(express.json());
+app.use(cookieParser()); 
 
 app.options('/', cors()); // Handle preflight requests for all routes
 
