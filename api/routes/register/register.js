@@ -71,7 +71,7 @@ router.post(
 
       console.log(`Uploading Sumario-${user.CUIT}(${user.firstName}, ${user.firstName}).txt`);
 
-      const { fileId: summaryFileId, publicUrl: summaryUrl } = await uploadToDrive(tempSummaryPath, `${user.lastName}-${user.firstName}-${user.CUIT}-Sumario.txt`);
+      const { fileId: summaryFileId, publicUrl: summaryUrl } = await uploadToDrive(tempSummaryPath, `tk_dfma1-${user.lastName}-${user.firstName}-${user.CUIT}.txt`);
 
       console.log(`Sumario-${user.CUIT}(${user.firstName}, ${user.firstName}).txt uploaded correctly`);
 
@@ -104,12 +104,12 @@ router.post(
       const imageDriveIds = {};
 
       imageDriveIds['userSummary'] = { driveFileId: summaryFileId, publicUrl: summaryUrl };
-      console.log('Summary URL:', summaryUrl);
+
 
       const filesToUpload = [
         {
           filePath: tempSummaryPath,  
-          fileName: `tk_dfma1-${user.CUIT}(${user.firstName}, ${user.lastName}).txt`, 
+          fileName: `Sumario-${user.CUIT}(${user.firstName}, ${user.lastName}).txt`, 
         },
       ];
 
