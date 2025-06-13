@@ -41,6 +41,11 @@ router.post('/', async (req, res) => {
     sameSite: 'Lax',
     maxAge: 86400000 // 1 day
   })
+
+  res.status(200).json({ message: 'Logged in successfully' }) 
+
 });
+
+
 
 export default router;
