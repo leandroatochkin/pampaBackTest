@@ -16,7 +16,6 @@ router.get('/', (req, res) => {
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET)
-    console.log('Decoded token:', decoded)
     res.json({ isAuthenticated: true, userId: decoded.id })
   } catch {
     res.status(401).json({ message: 'Invalid token' })
