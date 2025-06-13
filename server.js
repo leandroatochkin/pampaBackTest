@@ -3,7 +3,6 @@ dotenv.config();
 
 import express from 'express';
 import cors from 'cors';
-//import centralizedErrorHandler from './middleware/error_handling/error_handler.cjs'; // Keeping this .cjs since it's CommonJS
 import registerUser from './api/routes/register/register.js'
 import loginUser from './api/routes/login/login.js'
 import getPortfolio from './api/routes/operations/getPortfolio.js'
@@ -41,22 +40,6 @@ app.use((req, res, next) => {
 
 
 console.log('Allowed origins:', allowedOrigins);
-
-
-// app.use(cors({
-//   origin: (origin, callback) => {
-//     if (!origin) return callback(null, true); // Allow requests with no origin (e.g., mobile apps)
-//     if (allowedOrigins.includes(origin)) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error('Not allowed by CORS'), false);
-//     }
-//   },
-//   credentials: true,
-//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-//   allowedHeaders: ['Content-Type', 'Authorization'],
-// }));
-
 
 
 app.use(express.json());
