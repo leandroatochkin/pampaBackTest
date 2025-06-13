@@ -34,7 +34,13 @@ router.post('/', async (req, res) => {
     expiresIn: '6h',
   });
 
-  res.json({ token });
+  //res.json({ token });
+  res.cookie('token', token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'Lax',
+    maxAge: 86400000 // 1 day
+  })
 });
 
 export default router;
