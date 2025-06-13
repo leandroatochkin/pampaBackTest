@@ -23,6 +23,10 @@ const allowedOrigins = [
     frontendURL,
 ];
  
+app.use(cors({
+  origin: frontendURL,  
+  credentials: true                 
+}))
 
 app.options('/', cors()); // Handle preflight requests for all routes
 
@@ -50,7 +54,7 @@ console.log('Allowed origins:', allowedOrigins);
 //   allowedHeaders: ['Content-Type', 'Authorization'],
 // }));
 
-app.use(cors())
+
 
 app.use(express.json());
 
