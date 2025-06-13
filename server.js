@@ -12,6 +12,7 @@ import getToken from './api/routes/token/getToken.js'
 import buyToken from './api/routes/token/buyToken.js'
 import sellToken from './api/routes/token/sellToken.js'
 import getMovements from './api/routes/movements/getMovements.js'
+import checkAuth from './api/routes/login/checkAuth.js'
 
 
 const app = express();
@@ -68,6 +69,7 @@ app.use('/get-value', getToken)
 app.use('/buy', buyToken)
 app.use('/sell', sellToken)
 app.use('/movements', getMovements)
+app.use('/auth', checkAuth)
 
 //app.use(centralizedErrorHandler);
 
