@@ -2,7 +2,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
 import { db } from '../../db/db.js'; // Adjust the path as necessary
 
 const router = express.Router();
