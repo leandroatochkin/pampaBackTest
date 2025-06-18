@@ -136,8 +136,8 @@ router.post(
               id, email, password, firstName, lastName, middleName, maritalStatus, phoneNumber,
               country, province, city, postalCode, address, CUIT, bank, CBU,
               politicallyExposed, UIFRequired, fiscalResident_outside_argentina,
-              termsAndConditions_read, isVerified, accountNumber, workingCode, bankAccountType
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+              termsAndConditions_read, isVerified, accountNumber, workingCode
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
         const values = [
             userId,
@@ -161,9 +161,8 @@ router.post(
             user.fiscalResident_outside_argentina || false,
             user.termsAndConditions_read || false,
             user.isVerified || false,
-            user.accountNumber || 0, // Default to 0 if not provided
+            user.accountNumber || null, // Default to 0 if not provided
             user.workingCode || null,
-            user.bankAccountType || 0
           ];
 
 
