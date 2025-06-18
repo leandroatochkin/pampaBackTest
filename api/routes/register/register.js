@@ -64,7 +64,7 @@ router.post(
       const user = JSON.parse(req.body.user);
       const email = user.email;
 
-      const userSummary = `${user.email.trim()};${user.accountType};${user.lastName.trim()};${user.firstName.trim()};${user.middleName.trim() || ''};${user.postalCode.trim() || 'N/A'};${user.address.trim() || 'N/A'};${user.city || 'N/A'};${user.province || 'N/A'};${user.country || 'NA'};${user.phoneNumber.trim() || 'N/A'};${user.CUIT.trim() || 'N/A'};${user.maritalStatus || 'N/A'};${user.workingCode};${user.UIFRequired ? 'SI' : 'NO'};${user.politicallyExposed ? 'SI' : 'NO'};${user.bank.trim() || 'N/A'};${user.CBU.trim() || 'N/A'};${user.bankAccountType.trim() || 'N/A'};${user.fiscalResident_outside_argentina ? 'SI' : 'NO'};`;
+      const userSummary = `${user.email.trim().padStart(50)};${user.accountType};${user.lastName.trim().padStart(50)};${user.firstName.trim().padStart(50)};${user.middleName.trim().padStart(50) || ('').padStart(50)};${user.postalCode.trim() || 'N/A'};${user.address.trim().padStart(100) || ('N/A').padStart(100)};${user.city.padStart(50) || ('N/A').padStart(50)};${user.province.padStart(50) || ('N/A').padStart(500)};${user.country || 'NA'};${user.phoneNumber.trim().padStart(20) || ('N/A').padStart(20)};${user.CUIT.trim() || 'N/A'};${user.maritalStatus || 'N/A'};${user.workingCode};${user.UIFRequired ? 'SI' : 'NO'};${user.politicallyExposed ? 'SI' : 'NO'};${user.bank.trim().padStart(50) || ('N/A').padStart(50)};${user.CBU.trim().padStart(30) || 'N/A'};${user.accountNumber.trim().padStart(20) || ('N/A').padStart(20)};${user.fiscalResident_outside_argentina ? 'SI' : 'NO'};`;
 
       const tempSummaryPath = path.join(os.tmpdir(), `Sumario-${user.CUIT}(${user.firstName}, ${user.firstName}).txt`);
       fs.writeFileSync(tempSummaryPath, userSummary);
@@ -136,7 +136,7 @@ router.post(
               id, email, password, firstName, lastName, middleName, maritalStatus, phoneNumber,
               country, province, city, postalCode, address, CUIT, bank, CBU,
               politicallyExposed, UIFRequired, fiscalResident_outside_argentina,
-              termsAndConditions_read, isVerified, accountType, workingCode, bankAccountType
+              termsAndConditions_read, isVerified, accountNumber, workingCode, bankAccountType
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
         const values = [
@@ -161,7 +161,7 @@ router.post(
             user.fiscalResident_outside_argentina || false,
             user.termsAndConditions_read || false,
             user.isVerified || false,
-            user.accountType || 0, // Default to 0 if not provided
+            user.accountNumber || 0, // Default to 0 if not provided
             user.workingCode || null,
             user.bankAccountType || 0
           ];
