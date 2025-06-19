@@ -57,7 +57,7 @@ router.post('/', authenticateToken, async (req, res) => {
             [userId]
         )
         
-        const userCUIT = getCUITresults[0][0]
+        const userCUIT = getCUITresults[0][0].CUIT
         console.log(userCUIT)
         const operationDTO = {
             CUIT: userCUIT,
