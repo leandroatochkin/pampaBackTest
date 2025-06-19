@@ -38,10 +38,6 @@ app.use((req, res, next) => {
 });
 
 
-
-console.log('Allowed origins:', allowedOrigins);
-
-
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -49,6 +45,11 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   next();
 });
+
+app.get('/debug-cookies', (req, res) => {
+  res.send(req.headers.cookie || 'No cookies received');
+});
+
 
 // Load routes
 app.use('/register', registerUser)
