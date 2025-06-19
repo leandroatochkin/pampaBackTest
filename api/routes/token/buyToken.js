@@ -53,7 +53,7 @@ router.post('/', authenticateToken, async (req, res) => {
         //start registry process
 
         const getCUITresults = await connection.query(
-            `SELECT CUIT FROM users WHERE userId = ?`,
+            `SELECT CUIT FROM users WHERE id = ?`,
             [userId]
         )
         
