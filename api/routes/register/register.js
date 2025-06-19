@@ -7,6 +7,7 @@ import { db } from '../../db/db.js';
 import { uploadToDrive } from '../../../storage/googleDriveApi.js';
 import os from 'os';
 import dayjs from 'dayjs';
+import bcrypt from 'bcryptjs';
 
 const router = express.Router();
 
@@ -128,6 +129,7 @@ router.post(
         }
       }
       
+      const hashedPassword = await bcrypt.hash(user.password, 10)
  
        console.log('Inserting user into database...');
         const userId = uuidv4()
@@ -142,7 +144,7 @@ router.post(
         const values = [
             userId,
             user.email,
-            user.password,
+            hashedPassword,
             user.firstName,
             user.lastName,
             user.middleName || null,

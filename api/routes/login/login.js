@@ -3,6 +3,7 @@ dotenv.config();
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import { db } from '../../db/db.js'; // Adjust the path as necessary
+import bcrypt from 'bcryptjs';
 
 const router = express.Router();
 
@@ -25,8 +26,13 @@ router.post('/', async (req, res) => {
     return res.status(401).json({ error: 'Invalid email or password.' });
   }
 
-  if (email !== result[0][0].email || password !== result[0][0].password)
-    return res.status(401).json({ error: 'Invalid credentials' });
+  const hashedPassword = result[0][0].password;
+
+  const passwordMatch = await bcrypt.compare(password, hashedPassword);
+
+if (!passwordMatch) {
+  return res.status(401).json({ error: 'Invalid credentials' });
+}
 
   // Create token
   const token = jwt.sign({ id: result[0][0].id }, JWT_SECRET, {
