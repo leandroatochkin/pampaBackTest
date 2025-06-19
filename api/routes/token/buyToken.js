@@ -2,11 +2,14 @@ import express from 'express';
 import { db } from '../../db/db.js';
 import { authenticateToken } from '../../middleware/auth.js';
 import { v4 as uuidv4 } from 'uuid';
+import { logTradeOperation } from '../../../helpers/logTradeOperation.js';
 
 const router = express.Router();
 
+const drive = 
+
 router.post('/', authenticateToken, async (req, res) => {
-    const { userId, amount, symbol, boughtAtValue, tokenName, tokenExpiringDate } = req.body;
+    const { userId, amount, symbol, boughtAtValue, tokenName, tokenExpiringDate, operationType } = req.body;
 
     if (!userId || amount == null || !symbol || !boughtAtValue) {
         return res.status(400).json({ message: 'Missing required fields' });
@@ -36,6 +39,9 @@ router.post('/', authenticateToken, async (req, res) => {
                 `INSERT INTO userTokens (userId, tokenSymbol, tokenName, tokenAmount, tokenPaidPrice, tokenExpiringDate) VALUES (?, ?, ?, ?, ?, ?)`,
                 [userId, symbol, tokenName, amount, boughtAtValue, tokenExpiringDate]
             );
+        
+        
+
         } else {
             // Step 2b: Update existing token entry
             await connection.query(
@@ -43,6 +49,25 @@ router.post('/', authenticateToken, async (req, res) => {
                 [amount, boughtAtValue, userId, symbol]
             );
         }
+
+        //start registry process
+
+        const getCUITresults = await connection.query(
+            `SELECT CUIT FROM users WHERE userId = ?`,
+            [userId]
+        )
+        
+        const userCUIT = getCUITresults[0]
+        console.log(userCUIT)
+        const operationDTO = {
+            CUIT: userCUIT,
+            operationType: operationType,
+            token: symbol,
+            amount: amount,
+            price: boughtAtValue
+        }
+
+        await logTradeOperation(operationDTO)
 
         await connection.commit();
         res.status(200).json({ message: 'Operation successful' });

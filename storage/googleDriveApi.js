@@ -1,21 +1,9 @@
 
 import dotenv from 'dotenv';
 dotenv.config();
-import { google } from 'googleapis';
 import fs from 'fs';
-import path from 'path';
 import mime from 'mime-types';
-
-const keyFilePath = '/etc/secrets/pampatokensstorage-d1e00b34af25.json';
-
-const auth = new google.auth.GoogleAuth({
-  keyFile: keyFilePath,
-  scopes: ['https://www.googleapis.com/auth/drive.file'],
-});
-
-const folderId = process.env.GOOGLE_DRIVE_FOLDER_ID
-
-const drive = google.drive({ version: 'v3', auth });
+import { drive, folderId } from './drive';
 
 export const uploadToDrive = async (filePath, fileName) => {
   try {
