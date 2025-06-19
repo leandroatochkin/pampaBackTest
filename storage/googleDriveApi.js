@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import fs from 'fs';
 import mime from 'mime-types';
-import { drive, folderId } from './drive';
+import { drive, folderId } from './drive.js';
 
 export const uploadToDrive = async (filePath, fileName) => {
   try {

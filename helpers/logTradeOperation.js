@@ -1,6 +1,6 @@
-import { getOrCreateOperationFile } from "./createOperationsFile";
-import { appendTradeOperation } from "./appendTradeOperation";
-import { drive } from "../storage/drive";
+import { getOrCreateOperationFile } from "./createOperationsFile.js";
+import { appendTradeOperation } from "./appendTradeOperation.js";
+import { drive } from "../storage/drive.js";
 const folderId = process.env.GOOGLE_DRIVE_REGISTRY_FOLDER
 
 function formatOperationText(data) {
