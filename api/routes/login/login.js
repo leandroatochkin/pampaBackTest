@@ -10,6 +10,7 @@ const router = express.Router();
 
 // Secret key for JWT
 const JWT_SECRET =  process.env.JWT_SECRET
+const BACKEND_HOST = process.env.BACKEND_HOST
 
 // POST /api/login
 router.post('/', async (req, res) => {
@@ -44,7 +45,8 @@ if (!passwordMatch) {
     httpOnly: true,
     secure: true,
     sameSite: 'None', 
-    maxAge: 86400000 // 1 day
+    maxAge: 86400000, // 1 day
+    domain: `${BACKEND_HOST}`
   })
 
   res.status(200).json({ message: 'Logged in successfully' }) 
