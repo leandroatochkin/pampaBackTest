@@ -2,8 +2,8 @@ import { db } from "./api/db/db.js";
 
 async function testConnection() {
   try {
-    await db.query('ALTER TABLE users MODIFY country VARCHAR(3) NOT NULL');
-    console.log('done');
+    const result = await db.query("SELECT * FROM userTokens WHERE userId = '9b3ce2fb-8e46-46e9-b47d-38576ce19f93'");
+    console.log(result);
   } catch (err) {
     console.error('❌ Connection failed:', err.message);
   } finally {

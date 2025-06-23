@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.get('/', authenticateToken, async (req, res) => {
     const userId = req.query
+    console.log('user id:', userId)
     if(!userId){
         return res.status(400).json({ message: 'User ID is required' });
     }
