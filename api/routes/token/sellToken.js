@@ -42,7 +42,7 @@ router.post('/', authenticateToken, async (req, res) => {
                     operationType: 1,
                     token: symbol,
                     amount: amount,
-                    price: boughtAtValue
+                    price: soldAtValue
                 }
         
                 await logTradeOperation(operationDTO)
