@@ -5,11 +5,11 @@ import dayjs from "dayjs";
 const folderId = process.env.GOOGLE_DRIVE_REGISTRY_FOLDER
 
 function formatOperationText(data) {
-  return `[${dayjs().format('YYYY-MM-DD HH:mm:ss')}]|${data.CUIT}|${data.operationType ? 0 === 'C' : 'V' }|${data.token}|${data.amount}|$${Number(data.price).toFixed(2)};`;//format the output to the file
+  return `[${data.CUIT}|${data.operationType ? 0 === 'C' : 'V' }|${data.token.padEnd(30)}|${data.amount.padEnd(10)}|${Number(data.price/100).toFixed(2).padEnd(10)|('100.50').padEnd(10)};`;//format the output to the file
 }
 
 export async function logTradeOperation(operationData) {
   const fileId = await getOrCreateOperationFile(drive, folderId);
   const formatted = formatOperationText(operationData);
   await appendTradeOperation(drive, fileId, formatted);
-}
+} 
