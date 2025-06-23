@@ -9,7 +9,7 @@ const router = express.Router();
 const drive = 
 
 router.post('/', authenticateToken, async (req, res) => {
-    const { userId, amount, symbol, boughtAtValue, tokenName, tokenExpiringDate, operationType } = req.body;
+    const { userId, amount, symbol, boughtAtValue, tokenName, tokenExpiringDate } = req.body;
 
     if (!userId || amount == null || !symbol || !boughtAtValue) {
         return res.status(400).json({ message: 'Missing required fields' });
@@ -61,7 +61,7 @@ router.post('/', authenticateToken, async (req, res) => {
         console.log(userCUIT)
         const operationDTO = {
             CUIT: userCUIT,
-            operationType: operationType,
+            operationType: 0,
             token: symbol,
             amount: amount,
             price: boughtAtValue
