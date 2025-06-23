@@ -7,7 +7,7 @@ import { authenticateToken } from '../../middleware/auth.js';
 const router = express.Router();
 
 router.get('/', authenticateToken, async (req, res) => {
-    const userId = req.query
+    const {userId} = req.query
     if(!userId){
         return res.status(400).json({ message: 'User ID is required' });
     }

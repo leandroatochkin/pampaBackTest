@@ -6,8 +6,6 @@ import { logTradeOperation } from '../../../helpers/logTradeOperation.js';
 
 const router = express.Router();
 
-const drive = 
-
 router.post('/', authenticateToken, async (req, res) => {
     const { userId, amount, symbol, boughtAtValue, tokenName, tokenExpiringDate } = req.body;
 
