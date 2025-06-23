@@ -15,7 +15,7 @@ router.get('/', authenticateToken, async (req, res) => {
     try {
         const portfolio = await db.query(`
             SELECT * FROM userTokens WHERE userId = ?
-            `,[userId])
+            `,[userId.userId])
             console.log(portfolio)
             if (!Array.isArray(portfolio) || portfolio.length === 0) {
                 res.status(200).json({ message: 'No portfolio found for this user' })
