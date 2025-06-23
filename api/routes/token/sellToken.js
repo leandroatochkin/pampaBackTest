@@ -2,6 +2,7 @@ import express from 'express';
 import { db } from '../../db/db.js';
 import { authenticateToken } from '../../middleware/auth.js';
 import { v4 as uuidv4 } from 'uuid';
+import { logTradeOperation } from '../../../helpers/logTradeOperation.js';
 
 const router = express.Router();
 
@@ -28,6 +29,23 @@ router.post('/', authenticateToken, async (req, res) => {
             `UPDATE userTokens SET tokenAmount = tokenAmount - ? WHERE userId = ? AND tokenSymbol = ?`,
             [amount, userId, symbol]
         );
+
+          const getCUITresults = await connection.query(
+                    `SELECT CUIT FROM users WHERE id = ?`,
+                    [userId]
+                )
+                
+                const userCUIT = getCUITresults[0][0].CUIT
+                console.log(userCUIT)
+                const operationDTO = {
+                    CUIT: userCUIT,
+                    operationType: 1,
+                    token: symbol,
+                    amount: amount,
+                    price: boughtAtValue
+                }
+        
+                await logTradeOperation(operationDTO)
 
         await connection.commit();
         res.status(200).json({ message: 'Operation successful' });
