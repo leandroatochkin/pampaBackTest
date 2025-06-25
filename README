@@ -1,0 +1,67 @@
+##TABLES
+
+CREATE TABLE users (
+    id VARCHAR(36),
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(60) NOT NULL,
+    firstName VARCHAR(100) NOT NULL,
+    lastName VARCHAR(100) NOT NULL,
+    middleName VARCHAR(100),
+    maritalStatus CHAR(1),
+    phoneNumber VARCHAR(20),
+    country VARCHAR(3) NOT NULL,
+    province VARCHAR(100),
+    city VARCHAR(100),
+    postalCode VARCHAR(20),
+    address VARCHAR(255),
+    CUIT VARCHAR(20),
+    bank VARCHAR(100),
+    CBU VARCHAR(30),
+    politicallyExposed TINYINT(1) DEFAULT 0,
+    UIFRequired TINYINT(1) DEFAULT 0,
+    fiscalResident_outside_argentina TINYINT(1) DEFAULT 0,
+    termsAndConditions_read TINYINT(1) DEFAULT 0,
+    isVerified TINYINT(1) DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    accountType INT,
+    workingCode INT,
+    accountNumber VARCHAR(20),
+    
+    PRIMARY KEY (email)
+);
+
+CREATE TABLE userTokens (
+    userId VARCHAR(36) NOT NULL,
+    tokenSymbol VARCHAR(36) NOT NULL,
+    tokenName VARCHAR(255) NOT NULL,
+    tokenAmount INT,
+    tokenPaidPrice BIGINT,
+    tokenExpiringDate VARCHAR(50),
+    
+    PRIMARY KEY (userId, tokenSymbol)
+);
+
+CREATE TABLE pampaTokensVariations (
+    variationId INT NOT NULL AUTO_INCREMENT,
+    SIMBOLO VARCHAR(50),
+    NOMBRE VARCHAR(50),
+    VALOR_COMPRA BIGINT,
+    VALOR_VENTA BIGINT,
+    STOCK BIGINT,
+    FECHA_MODIFICACION TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    VENCIMIENTO DATE,
+    
+    PRIMARY KEY (variationId)
+);
+
+CREATE TABLE operations (
+    operationId VARCHAR(36) NOT NULL,
+    userId VARCHAR(36) NOT NULL,
+    amount INT,
+    operationDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    operationType TINYINT,
+    symbol VARCHAR(50),
+    value BIGINT,
+    
+    PRIMARY KEY (operationId)
+);
