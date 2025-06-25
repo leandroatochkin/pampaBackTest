@@ -13,6 +13,7 @@ import sellToken from './api/routes/token/sellToken.js'
 import getMovements from './api/routes/movements/getMovements.js'
 import verifyRoute from './api/routes/register/verify.js'
 import checkAuth from './api/routes/login/checkAuth.js'
+import getUserRoute from './api/routes/user/getUser.js'
 import cookieParser from 'cookie-parser';
 
 
@@ -63,6 +64,7 @@ app.use('/sell', sellToken)
 app.use('/movements', getMovements)
 app.use('/auth', checkAuth)
 app.use('/verify', verifyRoute)
+app.use('/user', getUserRoute)
 
 //app.use(centralizedErrorHandler);
 

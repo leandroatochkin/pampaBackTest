@@ -36,9 +36,17 @@ if (!passwordMatch) {
 }
 
   // Create token
-  const token = jwt.sign({ id: result[0][0].id }, JWT_SECRET, {
-    expiresIn: '6h',
-  });
+  const token = jwt.sign(
+  {
+    id: result[0][0].id,
+    email: result[0][0].email,
+    isVerified: result[0][0].isVerified,
+    firstName: result[0][0].firstName,
+    lastName: result[0][0].lastName
+  },
+  JWT_SECRET,
+  { expiresIn: '6h' }
+);
 
   //res.json({ token });
   res.cookie('token', token, {
