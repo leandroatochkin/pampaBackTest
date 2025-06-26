@@ -40,7 +40,7 @@ router.post(
   upload.fields([
     { name: 'frontIdImage', maxCount: 1 },
     { name: 'backIdImage', maxCount: 1 },
-   // { name: 'selfieImage', maxCount: 1 }
+   { name: 'selfieImage', maxCount: 1 }
   ]),
 
 
@@ -65,7 +65,7 @@ router.post(
       const user = JSON.parse(req.body.user);
       const email = user.email;
 
-      const userSummary = `${user.email.trim().padEnd(50)};${user.accountType};${user.lastName.trim().padEnd(50)};${user.firstName.trim().padEnd(50)};${user.middleName.trim().padEnd(50) || ('N/A').padEnd(50)};${user.postalCode.trim() || 'N/A'};${user.address.trim().padEnd(100) || ('N/A').padEnd(100)};${user.city.padEnd(50) || ('N/A').padEnd(50)};${user.province.padEnd(50) || ('N/A').padEnd(50)};${user.country || 'NA'};${user.phoneNumber.trim().padEnd(20) || ('N/A').padEnd(20)};${user.CUIT.trim() || 'N/A'};${user.maritalStatus || 'N/A'};${user.workingCode};${user.UIFRequired ? 'SI' : 'NO'};${user.politicallyExposed ? 'SI' : 'NO'};${user.bank.trim().padEnd(50) || ('N/A').padEnd(50)};${user.CBU.trim().padEnd(30) || 'N/A'};${user.accountNumber.trim().padEnd(20) || ('N/A').padEnd(20)};${user.fiscalResident_outside_argentina ? 'SI' : 'NO'};`;
+      const userSummary = `${user.email.trim().padEnd(50)};${user.accountType};${user.lastName.trim().padEnd(50)};${user.firstName.trim().padEnd(50)};${user.middleName.trim().padEnd(50) || ('N/A').padEnd(50)};${user.postalCode.trim() || 'N/A'};${user.address.trim().padEnd(100) || ('N/A').padEnd(100)};${user.city.padEnd(50) || ('N/A').padEnd(50)};${user.province.padEnd(50) || ('N/A').padEnd(50)};${String(user.country).padStart(1) || ('NA').padStart(1)};${user.phoneNumber.trim().padEnd(20) || ('N/A').padEnd(20)};${user.CUIT.trim() || 'N/A'};${user.maritalStatus || 'N/A'};${user.workingCode};${user.UIFRequired ? 'SI' : 'NO'};${user.politicallyExposed ? 'SI' : 'NO'};${user.bank.trim().padEnd(50) || ('N/A').padEnd(50)};${user.CBU.trim().padEnd(30) || 'N/A'};${user.accountNumber.trim().padEnd(20) || ('N/A').padEnd(20)};${user.fiscalResident_outside_argentina ? 'SI' : 'NO'};`;
 
       const tempSummaryPath = path.join(os.tmpdir(), `Sumario-${user.CUIT}(${user.firstName}, ${user.firstName}).txt`);
       fs.writeFileSync(tempSummaryPath, userSummary);
@@ -86,8 +86,8 @@ router.post(
               return 'DNI-FRENTE'
             case 'backIdImage':
               return 'DNI-DORSO'
-            //case 'selfieImage':
-             // return 'ROSTRO'
+            case 'selfieImage':
+             return 'ROSTRO'
           }
         }
 
@@ -118,7 +118,7 @@ router.post(
       for (const fieldName of [
         'frontIdImage', 
         'backIdImage', 
-        //'selfieImage'
+        'selfieImage'
       ]) {
         if (req.files[fieldName]?.[0]) {
           console.log(`Processing ${fieldName}...`);
@@ -145,9 +145,9 @@ router.post(
             userId,
             user.email,
             hashedPassword,
-            user.firstName,
-            user.lastName,
-            user.middleName || null,
+            user.firstName.toLowerCase().trim(),
+            user.lastName.toLowerCase().trim(),
+            user.middleName.toLowerCase().trim() || null,
             user.maritalStatus || null,
             user.phoneNumber || null,
             user.country || null,
@@ -162,7 +162,7 @@ router.post(
             user.UIFRequired || false,
             user.fiscalResident_outside_argentina || false,
             user.termsAndConditions_read || false,
-            user.isVerified || false,
+            'P',
             user.accountNumber || null, // Default to 0 if not provided
             user.workingCode || null,
           ];
