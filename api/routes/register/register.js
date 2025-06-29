@@ -8,6 +8,7 @@ import { uploadToDrive } from '../../../storage/googleDriveApi.js';
 import os from 'os';
 import dayjs from 'dayjs';
 import bcrypt from 'bcryptjs';
+import { transporter } from '../../mailing/transport.js';
 
 const router = express.Router();
 
@@ -75,13 +76,14 @@ router.post(
  
        console.log('Inserting user into database...');
         const userId = uuidv4()
+        const emailVerificationToken = uuidv4();
         const query = `
         INSERT INTO users (
               id, email, password, firstName, lastName, middleName, maritalStatus, phoneNumber,
               country, province, city, postalCode, address, CUIT, bank, CBU,
               politicallyExposed, UIFRequired, fiscalResident_outside_argentina,
-              termsAndConditions_read, isVerified, accountNumber, workingCode
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+              termsAndConditions_read, isVerified, accountNumber, workingCode, emailVerified, emailVerificationToken
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
         const values = [
             userId,
@@ -107,13 +109,30 @@ router.post(
             'P',
             user.accountNumber || null, // Default to 0 if not provided
             user.workingCode || null,
+            0,
+            emailVerificationToken
           ];
 
 
 
-        const [result] = await db.execute(query, values);
+      const [result] = await db.execute(query, values);
 
-              const userSummary = `${user.email.trim().padEnd(50)};${user.accountType};${user.lastName.trim().padEnd(50)};${user.firstName.trim().padEnd(50)};${user.middleName.trim().padEnd(50) || ('N/A').padEnd(50)};${user.postalCode.trim() || 'N/A'};${user.address.trim().padEnd(100) || ('N/A').padEnd(100)};${user.city.padEnd(50) || ('N/A').padEnd(50)};${user.province.padEnd(50) || ('N/A').padEnd(50)};${String(user.country).padStart(3) || ('NA').padStart(3)};${user.phoneNumber.trim().padEnd(20) || ('N/A').padEnd(20)};${user.CUIT.trim() || 'N/A'};${user.maritalStatus || 'N/A'};${user.workingCode};${user.UIFRequired ? 'SI' : 'NO'};${user.politicallyExposed ? 'SI' : 'NO'};${user.bank.trim().padEnd(50) || ('N/A').padEnd(50)};${user.CBU.trim().padEnd(30) || 'N/A'};${user.accountNumber.trim().padEnd(20) || ('N/A').padEnd(20)};${user.fiscalResident_outside_argentina ? 'SI' : 'NO'};`;
+      if(result){
+         await transporter.sendMail({
+          from: '"PampaTokens" <soporte@pampatokens.com.ar>',
+          to: user.email,
+          subject: 'Verificá tu correo electrónico',
+          html: `
+            <h3>Confirmá tu cuenta</h3>
+            <p>Hacé clic en el siguiente enlace para verificar tu correo:</p>
+            <a href="${process.env.FRONTEND_URL}/verify-email?token=${emailVerificationToken}">Verificar cuenta</a>
+          `,
+       });
+      }
+
+      
+
+      const userSummary = `${user.email.trim().padEnd(50)};${user.accountType};${user.lastName.trim().padEnd(50)};${user.firstName.trim().padEnd(50)};${user.middleName.trim().padEnd(50) || ('N/A').padEnd(50)};${user.postalCode.trim() || 'N/A'};${user.address.trim().padEnd(100) || ('N/A').padEnd(100)};${user.city.padEnd(50) || ('N/A').padEnd(50)};${user.province.padEnd(50) || ('N/A').padEnd(50)};${String(user.country).padStart(3) || ('NA').padStart(3)};${user.phoneNumber.trim().padEnd(20) || ('N/A').padEnd(20)};${user.CUIT.trim() || 'N/A'};${user.maritalStatus || 'N/A'};${user.workingCode};${user.UIFRequired ? 'SI' : 'NO'};${user.politicallyExposed ? 'SI' : 'NO'};${user.bank.trim().padEnd(50) || ('N/A').padEnd(50)};${user.CBU.trim().padEnd(30) || 'N/A'};${user.accountNumber.trim().padEnd(20) || ('N/A').padEnd(20)};${user.fiscalResident_outside_argentina ? 'SI' : 'NO'};`;
 
       const tempSummaryPath = path.join(os.tmpdir(), `Sumario-${user.CUIT}(${user.firstName}, ${user.firstName}).txt`);
       fs.writeFileSync(tempSummaryPath, userSummary);

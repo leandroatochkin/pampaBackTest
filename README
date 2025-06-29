@@ -26,6 +26,9 @@ CREATE TABLE users (
     accountType INT,
     workingCode INT,
     accountNumber VARCHAR(20),
+    resetToken VARCHAR(36),
+    emailVerified TINYINT(1),
+    emailVerificationToken VARCHAR(36)
     
     PRIMARY KEY (email)
 );

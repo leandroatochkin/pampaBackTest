@@ -14,6 +14,8 @@ import getMovements from './api/routes/movements/getMovements.js'
 import verifyRoute from './api/routes/register/verify.js'
 import checkAuth from './api/routes/login/checkAuth.js'
 import getUserRoute from './api/routes/user/getUser.js'
+import forgotPasswordRoute from './api/routes/forgotPassword/forgotPassword.js'
+import verifyEmailRoute from './api/routes/register/verifyEmail.js'
 import cookieParser from 'cookie-parser';
 
 
@@ -65,6 +67,8 @@ app.use('/movements', getMovements)
 app.use('/auth', checkAuth)
 app.use('/verify', verifyRoute)
 app.use('/user', getUserRoute)
+app.use('/reset-password', forgotPasswordRoute)
+app.use('/verify-email', verifyEmailRoute)
 
 //app.use(centralizedErrorHandler);
 
