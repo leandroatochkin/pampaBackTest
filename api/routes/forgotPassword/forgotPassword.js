@@ -26,7 +26,8 @@ router.post('/', async (req, res) => {
     await db.execute('UPDATE users SET resetToken = ? WHERE id = ?', [resetToken, user.id]);
 
     // Send reset email
-    await transporter.sendMail({
+    try{
+        await transporter.sendMail({
       from: '"PampaTokens" <soporte@pampatokens.com.ar>',
       to: email,
       subject: 'Recuperación de clave',
@@ -36,6 +37,10 @@ router.post('/', async (req, res) => {
         <a href="${process.env.FRONTEND_URL}/reset-password?token=${resetToken}">Restablecer contraseña</a>
       `,
     });
+    } catch(error){
+        console.error('Error sending mail:', error);
+  return res.status(500).json({ error: 'Failed to send email' });
+    }
 
     res.status(200).json({ message: 'Password reset email sent successfully' });
   } catch (err) {
