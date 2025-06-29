@@ -26,29 +26,34 @@ router.post('/', async (req, res) => {
     await db.execute('UPDATE users SET resetToken = ? WHERE id = ?', [resetToken, user.id]);
 
     // Send reset email
-    try{
-      await transporter.sendMail({
-      from: '"PampaTokens" <soporte@pampatokens.com.ar>',
-      to: email,
-      subject: 'Recuperación de clave',
-      html: `
-        <h3>Recupere su clave</h3>
-        <p>Haga click en el link debajo para recuperar su clave:</p>
-        <a href="${process.env.FRONTEND_URL}/reset-password?token=${resetToken}">Restablecer contraseña</a>
-      `,
-    });
-    transporter.verify((err, success) => {
-        if (err) console.error('Email transport error:', err);
-        else console.log('Email transporter ready');
-        });
+    try {
+  // Make sure transporter is ready BEFORE trying to send
+  await transporter.verify();
+  console.log('✅ Transporter is ready to send mail');
 
-    console.log('Reset request received for:', email);
-    console.log('User found:', rows);
-    console.log('Sending email to:', email);
-    } catch(error){
-        console.error('Error sending mail:', error);
-  return res.status(500).json({ error: 'Failed to send email' });
+  const info = await transporter.sendMail({
+    from: '"PampaTokens" <soporte@pampatokens.com.ar>',
+    to: email,
+    subject: 'Recuperación de clave',
+    html: `
+      <h3>Recupere su clave</h3>
+      <p>Haga click en el link debajo para recuperar su clave:</p>
+      <a href="${process.env.FRONTEND_URL}/reset-password?token=${resetToken}">Restablecer contraseña</a>
+    `,
+  });
+
+  console.log('✅ Email sent! ID:', info.messageId);
+  console.log('Reset request received for:', email);
+  console.log('User found:', rows);
+  console.log('Sending email to:', email);
+  
+  return res.status(200).json({ message: 'Password reset email sent successfully' });
+
+    } catch (error) {
+    console.error('❌ Error sending mail:', error);
+    return res.status(500).json({ error: 'Failed to send email' });
     }
+
 
     res.status(200).json({ message: 'Password reset email sent successfully' });
   } catch (err) {
