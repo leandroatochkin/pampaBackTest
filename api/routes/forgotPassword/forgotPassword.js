@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
 
     // Send reset email
     try{
-        await transporter.sendMail({
+      await transporter.sendMail({
       from: '"PampaTokens" <soporte@pampatokens.com.ar>',
       to: email,
       subject: 'Recuperación de clave',
@@ -37,6 +37,14 @@ router.post('/', async (req, res) => {
         <a href="${process.env.FRONTEND_URL}/reset-password?token=${resetToken}">Restablecer contraseña</a>
       `,
     });
+    transporter.verify((err, success) => {
+        if (err) console.error('Email transport error:', err);
+        else console.log('Email transporter ready');
+        });
+
+    console.log('Reset request received for:', email);
+    console.log('User found:', rows);
+    console.log('Sending email to:', email);
     } catch(error){
         console.error('Error sending mail:', error);
   return res.status(500).json({ error: 'Failed to send email' });
