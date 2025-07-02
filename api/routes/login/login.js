@@ -42,7 +42,8 @@ if (!passwordMatch) {
     email: result[0][0].email,
     isVerified: result[0][0].isVerified,
     firstName: result[0][0].firstName,
-    lastName: result[0][0].lastName
+    lastName: result[0][0].lastName,
+    emailVerified:  result[0][0].emailVerified,
   },
   JWT_SECRET,
   { expiresIn: '6h' }
