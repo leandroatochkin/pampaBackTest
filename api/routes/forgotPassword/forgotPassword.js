@@ -31,10 +31,10 @@ router.post('/', async (req, res) => {
   await transporter.verify();
   console.log('✅ Transporter is ready to send mail');
 
-  const info = await transporter.sendMail({
+  await transporter.sendMail({
     from: '"PampaTokens" <soporte@pampatokens.com.ar>',
     to: email,
-    subject: 'Recuperación de clave',
+    subject: 'Recuperación de clave - NO CONTESTAR',
     html: `
       <h3>Recupere su clave</h3>
       <p>Haga click en el link debajo para recuperar su clave:</p>
@@ -42,10 +42,6 @@ router.post('/', async (req, res) => {
     `,
   });
 
-  console.log('✅ Email sent! ID:', info.messageId);
-  console.log('Reset request received for:', email);
-  console.log('User found:', rows);
-  console.log('Sending email to:', email);
   
   return res.status(200).json({ message: 'Password reset email sent successfully' });
 
