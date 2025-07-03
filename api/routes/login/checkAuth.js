@@ -12,7 +12,6 @@ const JWT_SECRET =  process.env.JWT_SECRET
 // POST /api/login
 router.get('/', (req, res) => {
   const token = req.cookies.token
-  console.log('Cookies:', req.cookies)
   if (!token) return res.status(401).json({ message: 'Not logged in' })
 
   try {
