@@ -50,8 +50,6 @@ router.post('/', async (req, res) => {
     return res.status(500).json({ error: 'Failed to send email' });
     }
 
-
-    res.status(200).json({ message: 'Password reset email sent successfully' });
   } catch (err) {
     console.error('Error sending reset email:', err);
     res.status(500).json({ error: 'Internal server error' });
