@@ -6,12 +6,12 @@ export const parseFileData = (fileData) => {
         
 
             return {
-                SIMBOLO: columns[0],
-                NOMBRE: columns[1],
-                VALOR_COMPRA: columns[2],
-                VALOR_VENTA: columns[3],
-                STOCK: columns[4],
-                VENCIMIENTO: columns[5],
+                SIMBOLO: columns[0].trim(),
+                NOMBRE: columns[1].trim(),
+                VALOR_COMPRA: columns[2].trim(),
+                VALOR_VENTA: columns[3].trim(),
+                STOCK: columns[4].trim(),
+                VENCIMIENTO: columns[5].trim(),
             };
         
     });
