@@ -17,6 +17,7 @@ import getUserRoute from './api/routes/user/getUser.js'
 import forgotPasswordRoute from './api/routes/forgotPassword/forgotPassword.js'
 import verifyEmailRoute from './api/routes/register/verifyEmail.js'
 import deleteAccountRoute from './api/routes/user/deleteAccount.js'
+import resetPasswordRoute from './api/routes/forgotPassword/resetPassword.js'
 import cookieParser from 'cookie-parser';
 
 
@@ -72,6 +73,7 @@ app.use('/user', getUserRoute)
 app.use('/reset-password', forgotPasswordRoute)
 app.use('/verify-email', verifyEmailRoute)
 app.use('/delete-account', deleteAccountRoute)
+app.use('/reset-password', resetPasswordRoute)
 
 //app.use(centralizedErrorHandler);
 
