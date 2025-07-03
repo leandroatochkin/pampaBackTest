@@ -125,7 +125,7 @@ router.post(
           html: `
             <h3>Confirmá tu cuenta</h3>
             <p>Hacé clic en el siguiente enlace para verificar tu correo:</p>
-            <a href="${process.env.FRONTEND_URL}/verify-email?token=${emailVerificationToken}">Verificar cuenta</a>
+            <a href="${process.env.FRONTEND_URL_A}/verify-email?token=${emailVerificationToken}">Verificar cuenta</a>
           `,
        });
       }

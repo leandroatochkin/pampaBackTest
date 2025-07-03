@@ -38,7 +38,7 @@ router.post('/', async (req, res) => {
     html: `
       <h3>Recupere su clave</h3>
       <p>Haga click en el link debajo para recuperar su clave:</p>
-      <a href="${process.env.FRONTEND_URL}/reset-password?token=${resetToken}">Restablecer contraseña</a>
+      <a href="${process.env.FRONTEND_URL_A}/reset-password?token=${resetToken}">Restablecer contraseña</a>
     `,
   });
 
