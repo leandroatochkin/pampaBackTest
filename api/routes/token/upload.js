@@ -15,12 +15,12 @@ router.post('/', async (req, res, next) => {
         }
         // Check if the token already exists
         for (const data of item) {
-                const { SIMBOLO, NOMBRE, VALOR_COMPRA, VALOR_VENTA, STOCK, VENCIMIENTO } = data
+                const { CODIGO_GRUPO, CODIGO_SIMBOLO, DES_SIMBOLO, VALOR_COMPRA, VALOR_VENTA, FECHA } = data
                 await db.query(`
                 INSERT INTO pampaTokenVariations 
-                (SIMBOLO, NOMBRE, VALOR_COMPRA, VALOR_VENTA, STOCK, VENCIMIENTO) 
+                (CODIGO_GRUPO, CODIGO_SIMBOLO, DES_SIMBOLO, VALOR_COMPRA, VALOR_VENTA, FECHA) 
                 VALUES (?, ?, ?, ?, ?, ?)
-            `,[SIMBOLO, NOMBRE, VALOR_COMPRA, VALOR_VENTA, STOCK, VENCIMIENTO])
+            `,[CODIGO_GRUPO, CODIGO_SIMBOLO, DES_SIMBOLO, VALOR_COMPRA, VALOR_VENTA, FECHA])
         }
 
             
