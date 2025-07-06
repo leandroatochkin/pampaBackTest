@@ -7,7 +7,7 @@ import { logTradeOperation } from '../../../helpers/logTradeOperation.js';
 const router = express.Router();
 
 router.post('/', authenticateToken, async (req, res) => {
-    const { userId, amount, symbol, soldAtValue } = req.body;
+    const { userId, amount, symbol, soldAtValue, tokenName } = req.body;
 
     if (!userId || amount == null || !symbol) {
         return res.status(400).json({ message: 'Missing required fields' });
@@ -39,7 +39,8 @@ router.post('/', authenticateToken, async (req, res) => {
                 const operationDTO = {
                     CUIT: userCUIT,
                     operationType: 1,
-                    token: symbol,
+                    tokenCode: symbol,
+                    tokenName: tokenName,
                     amount: amount,
                     price: soldAtValue
                 }

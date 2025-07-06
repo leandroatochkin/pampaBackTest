@@ -59,7 +59,8 @@ router.post('/', authenticateToken, async (req, res) => {
         const operationDTO = {
             CUIT: userCUIT,
             operationType: 0,
-            token: symbol,
+            tokenCode: symbol,
+            tokenName: tokenName,
             amount: amount,
             price: boughtAtValue
         }
