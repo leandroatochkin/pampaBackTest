@@ -7,7 +7,7 @@ import { logTradeOperation } from '../../../helpers/logTradeOperation.js';
 const router = express.Router();
 
 router.post('/', authenticateToken, async (req, res) => {
-    const { userId, amount, symbol, boughtAtValue, tokenName, tokenExpiringDate } = req.body;
+    const { userId, amount, symbol, boughtAtValue, tokenName } = req.body;
 
     if (!userId || amount == null || !symbol || !boughtAtValue) {
         return res.status(400).json({ message: 'Missing required fields' });
@@ -34,8 +34,8 @@ router.post('/', authenticateToken, async (req, res) => {
         if (existingRows.length === 0) {
             // Step 2a: Insert new token entry
             await connection.query(
-                `INSERT INTO userTokens (userId, tokenSymbol, tokenName, tokenAmount, tokenPaidPrice, tokenExpiringDate) VALUES (?, ?, ?, ?, ?, ?)`,
-                [userId, symbol, tokenName, amount, boughtAtValue, tokenExpiringDate]
+                `INSERT INTO userTokens (userId, tokenSymbol, tokenName, tokenAmount, tokenPaidPrice) VALUES (?, ?, ?, ?, ?)`,
+                [userId, symbol, tokenName, amount, boughtAtValue]
             );
         
         

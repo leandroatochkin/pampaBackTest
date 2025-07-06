@@ -4,10 +4,10 @@ import mysql from 'mysql2/promise';
 import fs from 'fs';
 import path from 'path';
 
-const isProduction = process.env.NODE_ENV === 'production';
-const caPath = isProduction
-  ? '/etc/secrets/ca.pem'  // ✅ this is where Render mounts it
-  : path.join(process.cwd(), 'secrets/ca.pem');
+//const isProduction = process.env.NODE_ENV === 'production';
+// const caPath = isProduction
+//   ? '/etc/secrets/ca.pem'  // ✅ this is where Render mounts it
+//   : path.join(process.cwd(), 'secrets/ca.pem');
 
 
 export const db = mysql.createPool({

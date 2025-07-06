@@ -21,14 +21,14 @@ CREATE TABLE users (
     UIFRequired TINYINT(1) DEFAULT 0,
     fiscalResident_outside_argentina TINYINT(1) DEFAULT 0,
     termsAndConditions_read TINYINT(1) DEFAULT 0,
-    isVerified TINYINT(1) DEFAULT 0,
+    isVerified VARCHAR(1),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     accountType INT,
     workingCode INT,
     accountNumber VARCHAR(20),
     resetToken VARCHAR(36),
     emailVerified TINYINT(1),
-    emailVerificationToken VARCHAR(36)
+    emailVerificationToken VARCHAR(36),
     
     PRIMARY KEY (email)
 );

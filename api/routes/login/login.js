@@ -49,7 +49,7 @@ if (!passwordMatch) {
   { expiresIn: '6h' }
 );
 
-  //res.json({ token });
+  res.json({ token });
   res.cookie('token', token, {
     httpOnly: true,
     secure: true,
@@ -58,6 +58,12 @@ if (!passwordMatch) {
     domain: `${BACKEND_HOST}`
   })
 
+// res.cookie('token', token, {
+//   httpOnly: true,
+//   secure: false,        // must be false for HTTP
+//   sameSite: 'Lax',      // or 'Strict' if you want more isolation
+//   maxAge: 86400000      // 1 day
+// })
   res.status(200).json({ message: 'Logged in successfully' }) 
 
 });
