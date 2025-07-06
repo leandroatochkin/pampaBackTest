@@ -9,7 +9,8 @@ export const parseVerifierFileData = (fileData) => {
                 CUIT: columns[0],
                 APELLIDO: columns[1],
                 NOMBRE: columns[2],
-                ESTADO: columns[3],
+                SEG_NOMBRE: columns[3],
+                ESTADO: columns[4],
             };
         
     });
