@@ -17,7 +17,7 @@ router.post('/', async (req, res, next) => {
         for (const data of item) {
                 const { CODIGO_GRUPO, CODIGO_SIMBOLO, DES_SIMBOLO, VALOR_COMPRA, VALOR_VENTA, FECHA } = data
                 await db.query(`
-                INSERT INTO pampaTokenVariations 
+                INSERT INTO pampaTokensVariations 
                 (CODIGO_GRUPO, CODIGO_SIMBOLO, DES_SIMBOLO, VALOR_COMPRA, VALOR_VENTA, FECHA) 
                 VALUES (?, ?, ?, ?, ?, ?)
             `,[CODIGO_GRUPO, CODIGO_SIMBOLO, DES_SIMBOLO, VALOR_COMPRA, VALOR_VENTA, FECHA])
