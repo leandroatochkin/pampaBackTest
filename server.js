@@ -67,6 +67,13 @@ app.get('/debug-cookies', (req, res) => {
   res.send(req.headers.cookie || 'No cookies received');
 });
 
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    timestamp: new Date().toISOString()
+  });
+});
+
 
 // Load routes
 app.use('/register', registerUser)
