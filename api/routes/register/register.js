@@ -136,7 +136,7 @@ router.post(
 
       const tempSummaryPath = path.join(os.tmpdir(), `Sumario-${user.CUIT}(${user.firstName}, ${user.firstName}).txt`);
       fs.writeFileSync(tempSummaryPath, userSummary);
-      const { fileId: summaryFileId, publicUrl: summaryUrl } = await uploadToDrive(tempSummaryPath, `tk_dfma1-${user.lastName}-${user.firstName}-${user.CUIT}.txt`);
+      const { fileId: summaryFileId, publicUrl: summaryUrl } = await uploadToDrive(tempSummaryPath, `tk_dfma1.txt`);
       fs.unlinkSync(tempSummaryPath);
 
       const uploadBufferToDrive = async (file, namePrefix) => {
