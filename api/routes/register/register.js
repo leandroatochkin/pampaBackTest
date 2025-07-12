@@ -61,7 +61,12 @@ router.post(
       const email = user.email;
 
 
-      const [existing] = await db.execute('SELECT id FROM users WHERE email = ?', [email]);
+      try{
+        const [existing] = await db.execute('SELECT id FROM users WHERE email = ?', [email]);
+      } catch (e){
+        console.error('❌ Query failed:', error);
+      res.status(500).json({ error: 'Database error' });
+      }
       if (existing.length > 0) {
         return res.status(409).json({
           success: false,
@@ -72,9 +77,13 @@ router.post(
 
 
       
-      const hashedPassword = await bcrypt.hash(user.password, 10)
+
+
+
+     try{ 
+        const hashedPassword = await bcrypt.hash(user.password, 10)
  
-       console.log('Inserting user into database...');
+        console.log('Inserting user into database...');
         const userId = uuidv4()
         const emailVerificationToken = uuidv4();
         const query = `
@@ -116,6 +125,10 @@ router.post(
 
 
       const [result] = await db.execute(query, values);
+     } catch (error) {
+      console.error('❌ Query failed:', error);
+      res.status(500).json({ error: 'Database error' });
+    }
 
       if(result){
          await transporter.sendMail({
