@@ -76,6 +76,7 @@ router.post(
 
       
     let result;
+    const emailVerificationToken = uuidv4();
 
 
      try{ 
@@ -83,7 +84,7 @@ router.post(
  
         console.log('Inserting user into database...');
         const userId = uuidv4()
-        const emailVerificationToken = uuidv4();
+        
         const query = `
         INSERT INTO users (
               id, email, password, firstName, lastName, middleName, maritalStatus, phoneNumber,
