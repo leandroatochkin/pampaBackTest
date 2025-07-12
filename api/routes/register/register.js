@@ -61,12 +61,10 @@ router.post(
       const email = user.email;
 
 
-      try{
-        const [existing] = await db.execute('SELECT id FROM users WHERE email = ?', [email]);
-      } catch (e){
-        console.error('❌ Query failed:', error);
-      res.status(500).json({ error: 'Database error' });
-      }
+ 
+      const [existing] = await db.execute('SELECT id FROM users WHERE email = ?', [email]);
+        
+
       if (existing.length > 0) {
         return res.status(409).json({
           success: false,
