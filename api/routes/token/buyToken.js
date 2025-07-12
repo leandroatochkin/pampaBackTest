@@ -9,6 +9,8 @@ const router = express.Router();
 router.post('/', authenticateToken, async (req, res) => {
     const { userId, amount, symbol, boughtAtValue, tokenName } = req.body;
 
+    console.log(userId, amount, symbol, boughtAtValue, tokenName)
+
     if (!userId || amount == null || !symbol || !boughtAtValue) {
         return res.status(400).json({ message: 'Missing required fields' });
     }
