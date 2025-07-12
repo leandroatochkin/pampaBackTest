@@ -75,7 +75,7 @@ router.post(
 
 
       
-
+    let result;
 
 
      try{ 
@@ -122,7 +122,9 @@ router.post(
 
 
 
-      const [result] = await db.execute(query, values);
+      [result] = await db.execute(query, values);
+    
+      
      } catch (error) {
       console.error('❌ Query failed:', error);
       res.status(500).json({ error: 'Database error' });
