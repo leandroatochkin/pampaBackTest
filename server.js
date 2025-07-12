@@ -27,11 +27,13 @@ const app = express();
 
 const FRONTEND_URL_A = process.env.FRONTEND_URL_A;
 const FRONTEND_URL_B = process.env.FRONTEND_URL_B;
+const FRONTEND_URL_C = process.env.FRONTEND_URL_C;
 
 
 const allowedOrigins = [
     FRONTEND_URL_A,
-    FRONTEND_URL_B
+    FRONTEND_URL_B,
+    FRONTEND_URL_C
 ];
  
 app.use(cors({
