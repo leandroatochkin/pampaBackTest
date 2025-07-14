@@ -20,6 +20,7 @@ export const uploadToDrive = async (filePath, fileName) => {
       resource: fileMetadata,
       media,
       fields: 'id',
+      supportsAllDrives: true 
     });
 
     const fileId = response.data.id;
