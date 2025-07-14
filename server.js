@@ -59,6 +59,8 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
+console.log('Using service account:', key.client_email);
+
 app.use((req, res, next) => {
   res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
