@@ -23,7 +23,13 @@ export const uploadToDrive = async (filePath, fileName) => {
       supportsAllDrives: true 
     });
     
-    console.log('📂 Folder contents:', response.data.files);
+    const res = await drive.files.list({
+  q: `'${folderId}' in parents`,
+  fields: 'files(id, name)',
+  supportsAllDrives: true,
+});
+
+console.log('📂 Folder contents:', res.data.files);
     const fileId = response.data.id;
 
     // Set file to public
