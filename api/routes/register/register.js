@@ -4,7 +4,8 @@ import fs from 'fs';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { db } from '../../db/db.js';
-import { uploadToDrive } from '../../../storage/googleDriveApi.js';
+//import { uploadToDrive } from '../../../storage/googleDriveApi.js';
+import { uploadToSupabase } from '../../../storage/supabaseUploader.js';
 import os from 'os';
 import dayjs from 'dayjs';
 import bcrypt from 'bcryptjs';
@@ -150,7 +151,7 @@ router.post(
 
       const tempSummaryPath = path.join(os.tmpdir(), `Sumario-${user.CUIT}(${user.firstName}, ${user.firstName}).txt`);
       fs.writeFileSync(tempSummaryPath, userSummary);
-      const { fileId: summaryFileId, publicUrl: summaryUrl } = await uploadToDrive(tempSummaryPath, `tk_dfma1.txt`);
+      const { fileId: summaryFileId, publicUrl: summaryUrl } = await uploadToSupabase(tempSummaryPath, `ALMACENAMIENTO_USUARIOS/tk_dfma1.txt`);
       fs.unlinkSync(tempSummaryPath);
 
       const uploadBufferToDrive = async (file, namePrefix) => {
@@ -170,7 +171,7 @@ router.post(
         const tempPath = path.join(os.tmpdir(), fileName);
         fs.writeFileSync(tempPath, file.buffer);
         
-        const { fileId, publicUrl } = await uploadToDrive(tempPath, fileName,);
+        const { fileId, publicUrl } = await uploadToSupabase(tempPath, fileName,);
         
         fs.unlinkSync(tempPath);
         return { fileId, publicUrl };
