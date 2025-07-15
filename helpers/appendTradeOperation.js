@@ -20,7 +20,7 @@
 //   });
 // }
 
-import { supabase } from "../storage/supabaseUploader";
+import { supabase } from "../storage/supabaseUploader.js";
 
 export async function appendTradeOperation(bucket, filePath, operationText) {
   // Download existing file content
