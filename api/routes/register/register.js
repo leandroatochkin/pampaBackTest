@@ -167,7 +167,7 @@ router.post(
         }
 
 
-        const fileName = `ALMACENAMIENTO_USUARIOS/${user.lastName}-${user.firstName}-${user.CUIT}${translateNamePrefix(namePrefix)}-${dayjs(Date.now()).format('DD-MM-YYYY')}-${file.originalname}.jpg`;
+        const fileName = `${user.lastName}-${user.firstName}-${user.CUIT}${translateNamePrefix(namePrefix)}-${dayjs(Date.now()).format('DD-MM-YYYY')}-${file.originalname}.jpg`;
         const tempPath = path.join(os.tmpdir(), fileName);
         fs.writeFileSync(tempPath, file.buffer);
         
