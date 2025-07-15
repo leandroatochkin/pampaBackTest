@@ -29,7 +29,7 @@
 //   return file.data.id;
 // }
 
-import { supabase } from '../storage/supabaseClient.js';
+import { supabase } from "../storage/supabaseUploader.js";
 import { getCurrentOperationLogDate } from "./timeCutOffs.js";
 
 export async function getOrCreateOperationFile(bucket, folder) {
