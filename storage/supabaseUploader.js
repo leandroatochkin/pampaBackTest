@@ -2,7 +2,7 @@
 import { createClient } from '@supabase/supabase-js';
 import fs from 'fs';
 
-const supabase = createClient(process.env.SUPABASE_BUCKET_URL, process.env.SUPABASE_ANON_KEY);
+const supabase = createClient(process.env.SUPABASE_BUCKET_URL, process.env.SUPABASE_ROLE_KEY);
 const bucket = process.env.SUPABASE_BUCKET_NAME;
 
 export const uploadToSupabase = async (filePath, destPath) => {
