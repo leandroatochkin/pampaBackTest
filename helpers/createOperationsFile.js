@@ -32,9 +32,9 @@
 import { supabase } from "../storage/supabaseUploader.js";
 import { getCurrentOperationLogDate } from "./timeCutOffs.js";
 
-export async function getOrCreateOperationFile(bucket, folder) {
+export async function getOrCreateOperationFile(bucket) {
   const fileName = `TK_COVE_${getCurrentOperationLogDate()}.txt`;
-  const fullPath = `${folder}/${fileName}`;
+  const fullPath = `${fileName}`;
 
   const { data, error } = await supabase
     .storage
