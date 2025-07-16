@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
-import { supabase } from './supabaseUploader';
+import { supabase } from './supabaseUploader.js';
 
 const router = express.Router();
 
