@@ -28,7 +28,7 @@ router.get('/', async (req, res) => {
     res.setHeader('Content-Disposition', `attachment; filename="${filePath.split('/').pop()}"`);
     res.setHeader('Content-Type', data.type);
 
-    data.send(res)
+    res.send(data)
 
   } catch (err) {
     console.error('❌ Error downloading file:', err);
