@@ -15,7 +15,7 @@ router.delete('/', async (req, res) => {
 
   const { error } = await supabase
     .storage
-    .from(process.env.SUPABASE_BUCKET_NAME) // ← replace with your bucket name
+    .from(process.env.SUPABASE_BUCKET_NAME) 
     .remove([path]);
 
   if (error) {
