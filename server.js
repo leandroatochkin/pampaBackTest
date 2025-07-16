@@ -19,6 +19,7 @@ import verifyEmailRoute from './api/routes/register/verifyEmail.js'
 import deleteAccountRoute from './api/routes/user/deleteAccount.js'
 import resetPasswordRoute from './api/routes/forgotPassword/resetPassword.js'
 import logoutRoute from './api/routes/logout/logout.js'
+import getPresignedFiles from './storage/getPresignedFiles.js'
 import cookieParser from 'cookie-parser';
 
 
@@ -28,12 +29,14 @@ const app = express();
 const FRONTEND_URL_A = process.env.FRONTEND_URL_A;
 const FRONTEND_URL_B = process.env.FRONTEND_URL_B;
 const FRONTEND_URL_C = process.env.FRONTEND_URL_C;
+const FRONTEND_URL_D = process.env.FRONTEND_URL_C;
 
 
 const allowedOrigins = [
     FRONTEND_URL_A,
     FRONTEND_URL_B,
-    FRONTEND_URL_C
+    FRONTEND_URL_C,
+    FRONTEND_URL_D
 ];
  
 app.use(cors({
@@ -96,6 +99,7 @@ app.use('/verify-email', verifyEmailRoute)
 app.use('/delete-account', deleteAccountRoute)
 app.use('/reset-password', resetPasswordRoute)
 app.use('/logout', logoutRoute)
+app.use('/get-file', getPresignedFiles)
 
 //app.use(centralizedErrorHandler);
 
