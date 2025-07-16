@@ -5,7 +5,7 @@ import { supabase } from './supabaseUploader.js';
 
 const router = express.Router();
 
-router.get('/download/:path(*)', async (req, res) => {
+router.get('/:path(*)', async (req, res) => {
   try {
     const bucket = process.env.SUPABASE_BUCKET_NAME; 
     const filePath = req.params.path; 
