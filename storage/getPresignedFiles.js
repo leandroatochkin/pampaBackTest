@@ -1,28 +1,25 @@
-import dotenv from 'dotenv';
-dotenv.config();
 import express from 'express';
 import { supabase } from './supabaseUploader.js';
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const { path } = req.query;
-
-  if (!path) {
-    return res.status(400).json({ success: false, message: 'Missing file path' });
-  }
-
   const { data, error } = await supabase
     .storage
-    .from(process.env.SUPABASE_BUCKET_NAME) // replace with your bucket
-    .createSignedUrl(path, 60); // valid for 60 seconds
+    .from(process.env.SUPABASE_BUCKET_NAME)
+    .list('', {  // root folder
+      limit: 1000,
+      offset: 0,
+      sortBy: { column: 'name', order: 'asc' },
+      recursive: true, // ✅ includes files inside folders
+    });
 
   if (error) {
-    console.error('Signed URL error:', error);
-    return res.status(500).json({ success: false, message: 'Could not generate signed URL' });
+    console.error('Failed to list files:', error);
+    return res.status(500).json({ success: false, message: 'Could not list files' });
   }
 
-  return res.status(200).json({ success: true, url: data.signedUrl });
+  return res.status(200).json({ success: true, files: data });
 });
 
 export default router;
