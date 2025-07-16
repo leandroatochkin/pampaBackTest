@@ -8,7 +8,12 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const bucket = process.env.SUPABASE_BUCKET_NAME; 
-    const filePath = req.params; 
+    const filePath = req.params.path; 
+
+      if (!filePath) {
+      return res.status(400).json({ success: false, error: 'Missing path query param' });
+    }
+
 
     const { data, error } = await supabase
       .storage
