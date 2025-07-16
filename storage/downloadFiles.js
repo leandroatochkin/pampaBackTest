@@ -1,19 +1,18 @@
-import dotenv from 'dotenv';
-dotenv.config();
 import express from 'express';
 import { supabase } from './supabaseUploader.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
   try {
-    const bucket = process.env.SUPABASE_BUCKET_NAME; 
-    const {filePath} = req.query
+    const bucket = process.env.SUPABASE_BUCKET_NAME;
+    const filePath = req.query.path;
 
-      if (!filePath) {
+    if (!filePath) {
       return res.status(400).json({ success: false, error: 'Missing path query param' });
     }
-
 
     const { data, error } = await supabase
       .storage
@@ -21,14 +20,15 @@ router.get('/', async (req, res) => {
       .download(filePath);
 
     if (error || !data) {
+      console.error('❌ Supabase error:', error);
       return res.status(404).json({ success: false, error: 'File not found' });
     }
 
-    // Set appropriate headers
-    res.setHeader('Content-Disposition', `attachment; filename="${filePath.split('/').pop()}"`);
-    res.setHeader('Content-Type', data.type);
+    const arrayBuffer = await data.arrayBuffer();
 
-    res.send(data)
+    res.setHeader('Content-Disposition', `attachment; filename="${filePath.split('/').pop()}"`);
+    res.setHeader('Content-Type', data.type || 'application/octet-stream');
+    res.send(Buffer.from(arrayBuffer));
 
   } catch (err) {
     console.error('❌ Error downloading file:', err);
