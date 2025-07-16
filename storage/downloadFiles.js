@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const bucket = process.env.SUPABASE_BUCKET_NAME; 
-    const filePath = req.params.params; 
+    const filePath = req.params; 
 
     const { data, error } = await supabase
       .storage
