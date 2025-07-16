@@ -1,12 +1,9 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import express from 'express';
 import { supabase } from './supabaseUploader';
 
 const router = express.Router();
-
-const supabase = createClient(
-  process.env.SUPABASE_BUCKET_URL,
-  process.env.SUPABASE_ROLE_KEY 
-);
 
 router.get('/', async (req, res) => {
   const { path } = req.query;
