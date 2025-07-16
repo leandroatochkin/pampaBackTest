@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.delete('/', async (req, res) => {
   const { filePath } = req.query;
-
+    console.log(filePath)
   if (!filePath) {
     return res.status(400).json({ success: false, message: 'Missing file path' });
   }
