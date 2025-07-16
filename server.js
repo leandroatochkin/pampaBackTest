@@ -20,6 +20,7 @@ import deleteAccountRoute from './api/routes/user/deleteAccount.js'
 import resetPasswordRoute from './api/routes/forgotPassword/resetPassword.js'
 import logoutRoute from './api/routes/logout/logout.js'
 import getPresignedFiles from './storage/getPresignedFiles.js'
+import deleteFile from './storage/deleteFiles.js'
 import cookieParser from 'cookie-parser';
 
 
@@ -100,6 +101,7 @@ app.use('/delete-account', deleteAccountRoute)
 app.use('/reset-password', resetPasswordRoute)
 app.use('/logout', logoutRoute)
 app.use('/get-file', getPresignedFiles)
+app.use('/delete-file', deleteFile)
 
 //app.use(centralizedErrorHandler);
 
