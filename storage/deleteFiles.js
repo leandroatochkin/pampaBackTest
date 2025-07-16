@@ -7,16 +7,16 @@ const router = express.Router();
 
 
 router.delete('/', async (req, res) => {
-  const { path } = req.query;
+  const { filePath } = req.query;
 
-  if (!path) {
+  if (!filePath) {
     return res.status(400).json({ success: false, message: 'Missing file path' });
   }
 
   const { error } = await supabase
     .storage
     .from(process.env.SUPABASE_BUCKET_NAME) 
-    .remove([path]);
+    .remove([filePath]);
 
   if (error) {
     console.error('❌ Delete error:', error);
