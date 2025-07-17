@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
     return res.status(400).json({ error: 'password is required.' });
 
 
-if (!password !== ADMIN_PASSWORD) {
+if (password !== ADMIN_PASSWORD) {
   return res.status(401).json({ error: 'Invalid credentials' });
 }
 
