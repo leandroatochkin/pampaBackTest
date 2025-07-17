@@ -32,7 +32,7 @@ const app = express();
 const FRONTEND_URL_A = process.env.FRONTEND_URL_A;
 const FRONTEND_URL_B = process.env.FRONTEND_URL_B;
 const FRONTEND_URL_C = process.env.FRONTEND_URL_C;
-const FRONTEND_URL_D = process.env.FRONTEND_URL_C;
+const FRONTEND_URL_D = process.env.FRONTEND_URL_D;
 
 
 const allowedOrigins = [
