@@ -22,6 +22,7 @@ import logoutRoute from './api/routes/logout/logout.js'
 import getPresignedFiles from './storage/getPresignedFiles.js'
 import deleteFile from './storage/deleteFiles.js'
 import downloadFiles from './storage/downloadFiles.js'
+import adminLogin from './storage/admin/adminLogin.js'
 import cookieParser from 'cookie-parser';
 
 
@@ -104,6 +105,7 @@ app.use('/logout', logoutRoute)
 app.use('/get-file', getPresignedFiles)
 app.use('/delete-file', deleteFile)
 app.use('/download-file', downloadFiles)
+app.use('/admin-login', adminLogin)
 
 //app.use(centralizedErrorHandler);
 
