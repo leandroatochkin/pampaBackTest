@@ -164,7 +164,7 @@ router.post(
       if (!exists) fs.writeFileSync(tempPath, '');
 
       // Append your summary
-      fs.appendFileSync(tempPath, `summary from ${userEmail}\n`);
+      fs.appendFileSync(tempPath, `summary from ${email}\n`);
 
       // Re-upload
       await uploadToSupabase(tempPath, filename);
