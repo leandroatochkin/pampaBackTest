@@ -194,12 +194,12 @@ router.post(
       imageDriveIds['userSummary'] = { driveFileId: summaryFileId, publicUrl: summaryUrl };
 
 
-      const filesToUpload = [
-        {
-          filePath: tempSummaryPath,  
-          fileName: `Sumario-${user.CUIT}(${user.firstName}, ${user.lastName}).txt`, 
-        },
-      ];
+      // const filesToUpload = [
+      //   {
+      //     filePath: tempSummaryPath,  
+      //     fileName: `Sumario-${user.CUIT}(${user.firstName}, ${user.lastName}).txt`, 
+      //   },
+      // ];
 
 
       for (const fieldName of [
