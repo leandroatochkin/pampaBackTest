@@ -24,3 +24,19 @@ export const uploadToSupabase = async (filePath, destPath) => {
     path: data.path
   };
 };
+
+export const downloadFromSupabase = async (filePath, localPath) => {
+  const { data, error } = await supabase.storage.from(bucket).download(filePath);
+
+  if (error) {
+    if (error.statusCode === 404) {
+      return false; // File doesn't exist — totally fine
+    }
+    console.error('❌ Download error:', error.message);
+    throw error;
+  }
+
+  const buffer = await data.arrayBuffer();
+  fs.writeFileSync(localPath, Buffer.from(buffer));
+  return true;
+};

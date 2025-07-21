@@ -5,7 +5,7 @@ import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { db } from '../../db/db.js';
 //import { uploadToDrive } from '../../../storage/googleDriveApi.js';
-import { uploadToSupabase } from '../../../storage/supabaseUploader.js';
+import { uploadToSupabase, downloadFromSupabase } from '../../../storage/supabaseUploader.js';
 import os from 'os';
 import dayjs from 'dayjs';
 import bcrypt from 'bcryptjs';
@@ -154,17 +154,24 @@ router.post(
       // const { fileId: summaryFileId, publicUrl: summaryUrl } = await uploadToSupabase(tempSummaryPath, `tk_dfma1.txt`);
       // fs.unlinkSync(tempSummaryPath);
 
-      const summaryFileName = 'tk_dfma1.txt';
-      const sharedSummaryPath = path.join(os.tmpdir(), summaryFileName);
+      const filename = 'tk_dfma1.txt';
+      const tempPath = path.join(os.tmpdir(), filename);
 
-      // Append the line (with newline character)
-      fs.appendFileSync(sharedSummaryPath, userSummary + '\n');
+      // Try to download existing file
+      const exists = await downloadFromSupabase(filename, tempPath);
 
-      // Upload updated file
-      const { fileId: summaryFileId, publicUrl: summaryUrl } = await uploadToSupabase(sharedSummaryPath, summaryFileName);
+      // If not, create a new one
+      if (!exists) fs.writeFileSync(tempPath, '');
 
-      // Optional: clean up local copy if you don't want to keep it
-      fs.unlinkSync(sharedSummaryPath);
+      // Append your summary
+      fs.appendFileSync(tempPath, `summary from ${userEmail}\n`);
+
+      // Re-upload
+      await uploadToSupabase(tempPath, filename);
+
+      // Cleanup
+      fs.unlinkSync(tempPath);
+
 
       const uploadBufferToDrive = async (file, namePrefix) => {
         const translateNamePrefix = (namePrefix) => {
