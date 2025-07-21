@@ -149,10 +149,22 @@ router.post(
 
       const userSummary = `${user.email.trim().padEnd(50)};${user.accountType};${user.lastName.trim().padEnd(50)};${user.firstName.trim().padEnd(50)};${user.middleName.trim().padEnd(50) || ('N/A').padEnd(50)};${user.postalCode.trim() || 'N/A'};${user.address.trim().padEnd(100) || ('N/A').padEnd(100)};${user.city.padEnd(50) || ('N/A').padEnd(50)};${user.province.padEnd(50) || ('N/A').padEnd(50)};${String(user.country).padStart(3) || ('NA').padStart(3)};${user.phoneNumber.trim().padEnd(20) || ('N/A').padEnd(20)};${user.CUIT.trim() || 'N/A'};${user.maritalStatus || 'N/A'};${user.workingCode};${user.UIFRequired ? 'SI' : 'NO'};${user.politicallyExposed ? 'SI' : 'NO'};${user.bank.trim().padEnd(50) || ('N/A').padEnd(50)};${user.CBU.trim().padEnd(30) || 'N/A'};${user.accountNumber.trim().padEnd(20) || ('N/A').padEnd(20)};${user.fiscalResident_outside_argentina ? 'SI' : 'NO'};`;
 
-      const tempSummaryPath = path.join(os.tmpdir(), `Sumario-${user.CUIT}(${user.firstName}, ${user.firstName}).txt`);
-      fs.writeFileSync(tempSummaryPath, userSummary);
-      const { fileId: summaryFileId, publicUrl: summaryUrl } = await uploadToSupabase(tempSummaryPath, `tk_dfma1.txt`);
-      fs.unlinkSync(tempSummaryPath);
+      // const tempSummaryPath = path.join(os.tmpdir(), `Sumario-${user.CUIT}(${user.firstName}, ${user.firstName}).txt`);
+      // fs.writeFileSync(tempSummaryPath, userSummary);
+      // const { fileId: summaryFileId, publicUrl: summaryUrl } = await uploadToSupabase(tempSummaryPath, `tk_dfma1.txt`);
+      // fs.unlinkSync(tempSummaryPath);
+
+      const summaryFileName = 'tk_dfma1.txt';
+      const sharedSummaryPath = path.join(os.tmpdir(), summaryFileName);
+
+      // Append the line (with newline character)
+      fs.appendFileSync(sharedSummaryPath, userSummary + '\n');
+
+      // Upload updated file
+      const { fileId: summaryFileId, publicUrl: summaryUrl } = await uploadToSupabase(sharedSummaryPath, summaryFileName);
+
+      // Optional: clean up local copy if you don't want to keep it
+      fs.unlinkSync(sharedSummaryPath);
 
       const uploadBufferToDrive = async (file, namePrefix) => {
         const translateNamePrefix = (namePrefix) => {
