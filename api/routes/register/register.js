@@ -136,7 +136,7 @@ router.post(
          await transporter.sendMail({
           from: '"PampaTokens" <soporte@pampatokens.com.ar>',
           to: user.email,
-          subject: 'Verificá tu correo electrónico - NO CONTESTAR',
+          subject: 'Verificá tu correo electrónico',
           html: `
             <h3>Confirmá tu cuenta</h3>
             <p>Hacé clic en el siguiente enlace para verificar tu correo:</p>

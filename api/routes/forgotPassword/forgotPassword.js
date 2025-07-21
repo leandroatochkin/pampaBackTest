@@ -34,7 +34,7 @@ router.post('/', async (req, res) => {
   await transporter.sendMail({
     from: '"PampaTokens" <soporte@pampatokens.com.ar>',
     to: email,
-    subject: 'Recuperación de clave - NO CONTESTAR',
+    subject: 'Recuperación de clave',
     html: `
       <h3>Recupere su clave</h3>
       <p>Haga click en el link debajo para recuperar su clave:</p>
