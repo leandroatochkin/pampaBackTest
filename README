@@ -29,6 +29,7 @@ CREATE TABLE users (
     resetToken VARCHAR(36),
     emailVerified TINYINT(1),
     emailVerificationToken VARCHAR(36),
+    identificationNumber VARCHAR(11)
     
     PRIMARY KEY (email)
 );

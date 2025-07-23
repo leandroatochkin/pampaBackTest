@@ -14,12 +14,15 @@ const BACKEND_HOST = process.env.BACKEND_HOST
 
 // POST /api/login
 router.post('/', async (req, res) => {
-  const { email, password } = req.body;
+  const { identificationNumber, password } = req.body;
 
-  if (!email || !password)
-    return res.status(400).json({ error: 'Username and password are required.' });
+  // if (!email || !password)
+  //   return res.status(400).json({ error: 'Username and password are required.' });
 
-  const result = await db.query('SELECT * FROM users WHERE email = ?', [email]);
+    if (!identificationNumber || !password)
+    return res.status(400).json({ error: 'identificationNumber and password are required.' });
+
+  const result = await db.query('SELECT * FROM users WHERE identificationNumber = ?', [identificationNumber]);
 
   console.log(result)
   
