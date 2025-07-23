@@ -92,7 +92,7 @@ router.post(
               country, province, city, postalCode, address, CUIT, bank, CBU,
               politicallyExposed, UIFRequired, fiscalResident_outside_argentina,
               termsAndConditions_read, isVerified, accountNumber, workingCode, emailVerified, emailVerificationToken, identificationNumber
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,>)
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
         const values = [
             userId,
