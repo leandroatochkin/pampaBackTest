@@ -130,7 +130,7 @@ router.post(
       
      } catch (error) {
       console.error('❌ Query failed:', error);
-      res.status(500).json({ error: 'Database error' });
+      return res.status(500).json({ error: 'Database error' });
     }
 
       if(result){
