@@ -3,15 +3,33 @@ import { db } from '../../db/db.js';
 import { authenticateToken } from '../../middleware/auth.js';
 import { v4 as uuidv4 } from 'uuid';
 import { logTradeOperation } from '../../../helpers/logTradeOperation.js';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc.js';
+import timezone from 'dayjs/plugin/timezone.js';
+
+dayjs.extend(utc);
+dayjs.extend(timezone); 
+
 
 const router = express.Router();
 
 router.post('/', authenticateToken, async (req, res) => {
     const { userId, amount, symbol, soldAtValue, tokenName } = req.body;
 
+        const nowInBuenosAires = dayjs().tz('America/Argentina/Buenos_Aires');
+        const hour = nowInBuenosAires.hour();
+        
+        if (hour >= 18) {
+            return res.status(403).json({ 
+                message: 'Mercado cerrado. No puede vender luego de las 18:00hs (Buenos Aires time).' 
+            });
+        }
+
     if (!userId || amount == null || !symbol) {
         return res.status(400).json({ message: 'Missing required fields' });
     }
+
+
 
     const operationId = uuidv4();
     const connection = await db.getConnection(); // Get a connection from the pool
