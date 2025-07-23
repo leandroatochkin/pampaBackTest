@@ -61,6 +61,8 @@ router.post(
       const user = JSON.parse(req.body.user);
       const email = user.email;
 
+      console.log(user)
+
 
  
       const [existing] = await db.execute('SELECT id FROM users WHERE email = ?', [email]);
