@@ -3,7 +3,7 @@ import { getCurrentOperationLogDate } from "./timeCutOffs.js";
 
 export async function getOrCreateOperationFile(bucket) {
   //const fileName = `TK_COVE_${getCurrentOperationLogDate()}.txt`;
-  const fileName = `TK_COVE1.txt`;
+  const fileName = `tk_cove1.txt`;
   const fullPath = `${fileName}`;
 
   const { data, error } = await supabase
