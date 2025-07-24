@@ -19,7 +19,7 @@ router.post('/', authenticateToken, async (req, res) => {
         const nowInBuenosAires = dayjs().tz('America/Argentina/Buenos_Aires');
         const hour = nowInBuenosAires.hour();
         
-        if (hour >= 18) {
+        if (hour >= 23) {
             return res.status(403).json({ 
                 message: 'Mercado cerrado. No puede vender luego de las 18:00hs (Buenos Aires time).' 
             });
