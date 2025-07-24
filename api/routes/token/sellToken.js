@@ -48,14 +48,14 @@ router.post('/', authenticateToken, async (req, res) => {
             [amount, userId, symbol]
         );
 
-          const getCUITresults = await connection.query(
-                    `SELECT CUIT FROM users WHERE id = ?`,
+          const getDNIresults = await connection.query(
+                    `SELECT identificationNumber FROM users WHERE id = ?`,
                     [userId]
                 )
                 
-                const userCUIT = getCUITresults[0][0].CUIT
+                const userDNI = getDNIresults[0][0].identificationNumber
                 const operationDTO = {
-                    CUIT: userCUIT,
+                    DNI: userDNI,
                     operationType: 1,
                     tokenCode: symbol,
                     tokenName: tokenName,

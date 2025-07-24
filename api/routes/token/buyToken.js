@@ -60,14 +60,14 @@ router.post('/', authenticateToken, async (req, res) => {
         }
 
         // Registry
-        const getCUITresults = await connection.query(
-            `SELECT CUIT FROM users WHERE id = ?`,
+        const getDNIresults = await connection.query(
+            `SELECT identificationNumber FROM users WHERE id = ?`,
             [userId]
         );
 
-        const userCUIT = getCUITresults[0][0].CUIT;
+        const userDNI = getDNIresults[0][0].identificationNumber;
         const operationDTO = {
-            CUIT: userCUIT,
+            DNI: userDNI,
             operationType: 0,
             tokenCode: symbol,
             tokenName: tokenName,
