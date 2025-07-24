@@ -15,10 +15,10 @@ router.post('/', async (req, res, next) => {
         }
         // Check if the token already exists
         for (const data of item) {
-                const { CUIT, APELLIDO, NOMBRE, ESTADO } = data
+                const { NRO_DOCUMENTO, APELLIDO, NOMBRE, ESTADO } = data
                 await db.query(`
-                UPDATE users SET isVerified = ? WHERE CUIT = ? AND firstName = ? AND lastName = ?
-            `,[ESTADO, CUIT, NOMBRE, APELLIDO])
+                UPDATE users SET isVerified = ? WHERE identificationNumber = ? AND firstName = ? AND lastName = ?
+            `,[ESTADO, NRO_DOCUMENTO, NOMBRE, APELLIDO])
         }
 
             

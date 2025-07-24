@@ -6,7 +6,7 @@ export const parseVerifierFileData = (fileData) => {
         
 
             return {
-                CUIT: columns[0],
+                NRO_DOCUMENTO: columns[0],
                 APELLIDO: columns[1],
                 NOMBRE: columns[2],
                 SEG_NOMBRE: columns[3],
