@@ -52,7 +52,13 @@ router.post('/', authenticateToken, async (req, res) => {
                     `SELECT identificationNumber FROM users WHERE id = ?`,
                     [userId]
                 )
+
+        const getComissionResults = await connection.query(
+                    `SELECT COMISION FROM pampaTokensVariations WHERE CODIGO_SIMBOLO = ?`,
+                    [symbol]
+                )
                 
+                const tokenComission = getComissionResults[0][0].COMISION
                 const userDNI = getDNIresults[0][0].identificationNumber
                 const operationDTO = {
                     DNI: userDNI,
@@ -60,7 +66,8 @@ router.post('/', authenticateToken, async (req, res) => {
                     tokenCode: symbol,
                     tokenName: tokenName,
                     amount: amount,
-                    price: soldAtValue
+                    price: soldAtValue,
+                    comission: tokenComission
                 }
         
                 await logTradeOperation(operationDTO)

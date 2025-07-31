@@ -12,6 +12,7 @@ export const parseFileData = (fileData) => {
                 VALOR_COMPRA: String(columns[3]).trim(),
                 VALOR_VENTA: String(columns[4]).trim(),
                 FECHA: String(columns[5]).trim(),
+                COMISION: String(columns[6]).trim()
             };
         
     });
