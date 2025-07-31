@@ -70,7 +70,7 @@ router.post('/', authenticateToken, async (req, res) => {
             [symbol]
         )
         
-        const tokenComission = getComissionResults[0][0].COMISI
+        const tokenComission = getComissionResults[0][0].COMISION
         const userDNI = getDNIresults[0][0].identificationNumber;
         const operationDTO = {
             DNI: userDNI,
