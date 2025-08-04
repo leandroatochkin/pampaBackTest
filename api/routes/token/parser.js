@@ -11,8 +11,8 @@ export const parseFileData = (fileData) => {
                 DES_SIMBOLO: String(columns[2]).trim(),
                 VALOR_COMPRA: String(columns[3]).trim(),
                 VALOR_VENTA: String(columns[4]).trim(),
-                COMISION: String(columns[6]).trim(),
-                FECHA: String(columns[5]).trim()
+                COMISION: String(columns[5]).trim(),
+                FECHA: String(columns[6]).trim()
             };
         
     });
