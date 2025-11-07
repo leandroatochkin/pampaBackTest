@@ -135,18 +135,18 @@ router.post(
       return res.status(500).json({ error: 'Database error' });
     }
 
-      if(result){
-         await transporter.sendMail({
-          from: '"PampaTokens" <soporte@pampatokens.com.ar>',
-          to: user.email,
-          subject: 'Verificá tu correo electrónico',
-          html: `
-            <h3>Confirmá tu cuenta</h3>
-            <p>Hacé clic en el siguiente enlace para verificar tu correo:</p>
-            <a href="${process.env.FRONTEND_URL_A}/verify-email?token=${emailVerificationToken}">Verificar cuenta</a>
-          `,
-       });
-      }
+      // if(result){
+      //    await transporter.sendMail({
+      //     from: '"PampaTokens" <soporte@pampatokens.com.ar>',
+      //     to: user.email,
+      //     subject: 'Verificá tu correo electrónico',
+      //     html: `
+      //       <h3>Confirmá tu cuenta</h3>
+      //       <p>Hacé clic en el siguiente enlace para verificar tu correo:</p>
+      //       <a href="${process.env.FRONTEND_URL_A}/verify-email?token=${emailVerificationToken}">Verificar cuenta</a>
+      //     `,
+      //  });
+      // }
 
       
 

@@ -7,3 +7,5 @@ ca.pem
 tokenWatcher.js
 
 secrets
+
+testSupabase.js
