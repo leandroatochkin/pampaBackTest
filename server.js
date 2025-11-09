@@ -30,8 +30,6 @@ import cookieParser from 'cookie-parser';
 
 const app = express();
 
-import helmet from 'helmet';
-
 
 app.use(helmet({
   hsts: {
