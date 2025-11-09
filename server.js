@@ -3,6 +3,7 @@ dotenv.config();
 
 import express from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
 import registerUser from './api/routes/register/register.js'
 import loginUser from './api/routes/login/login.js'
 import getPortfolio from './api/routes/operations/getPortfolio.js'
@@ -28,6 +29,33 @@ import cookieParser from 'cookie-parser';
 
 
 const app = express();
+
+import helmet from 'helmet';
+
+
+app.use(helmet({
+  hsts: {
+    maxAge: 63072000,          // 2 años (en segundos)
+    includeSubDomains: true,   // aplica también a subdominios
+    preload: true              // permite incluirte en la lista de preload de navegadores
+  },
+  frameguard: { action: 'deny' },
+  xContentTypeOptions: true,
+  contentSecurityPolicy: {
+    useDefaults: true,
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https:"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https:"],
+      imgSrc: ["'self'", "data:", "https:"],
+      fontSrc: ["'self'", "https:", "data:"],
+      connectSrc: ["'self'", "https:"],
+      formAction: ["'self'"],
+      baseUri: ["'self'"],
+      frameAncestors: ["'none'"]
+    }
+  }
+}));
 
 const FRONTEND_URL_A = process.env.FRONTEND_URL_A;
 const FRONTEND_URL_B = process.env.FRONTEND_URL_B;
